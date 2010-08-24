@@ -2,7 +2,7 @@ Requirements
 ============
 
   - Irssi IRC client.
-  - A http://notifo.com account.
+  - A [Notifo](http://notifo.com) account.
   - An iPhone with the Notifo app (free).
 
 HOWTO

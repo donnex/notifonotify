@@ -22,7 +22,7 @@ $VERSION = '0.1';
 	name => 'notifonotify',
 	description => 'Send iPhone Notifo.com notification when away and also '
 		. 'set away when disconnecting irssi-proxy.',
-	license => 'BSD',
+	license => 'GPLv2',
 	url => 'http://donnex.net',
 );
 
