@@ -11,3 +11,8 @@ HOWTO
   - /script load notifonotify.pl
   - Follow the instructions on how to set Notifo username and api secret.
   - You'll receive push notifications when set as /away in Irssi.
+
+Tips
+====
+  - If you've got problems activate debug mode with /set notifo_debug on and check your status window.
+  - Notifonotify goes great together with autoaway.pl from [http://scripts.irssi.org/scripts/](http://scripts.irssi.org/scripts/).
