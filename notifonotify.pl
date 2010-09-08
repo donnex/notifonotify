@@ -122,8 +122,9 @@ sub client_disconnect
 sub msg_pub
 {
 	my ($server, $data, $nick, $mask, $target) = @_;
+	my $safeNick = quotemeta($server->{nick});
 
-	if ($server->{usermode_away} == '1' && $data =~ /$server->{nick}/i) {
+	if ($server->{usermode_away} == '1' && $data =~ /$safeNick/i) {
 		debug('Got pub msg with my name.');
 		send_notifo('Mention', $target.' '.$nick.': '.strip_formating($data));
 	}
