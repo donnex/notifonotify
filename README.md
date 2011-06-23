@@ -2,7 +2,7 @@ Requirements
 ============
 
   - [Irssi](http://irssi.org) IRC client.
-  - The libwww Perl package.
+  - The following Perl packages. You have to restart Irssi when installed.
      - Debian/Ubuntu: libwww-perl + libcrypt-ssleay-perl
      - FreeBSD: p5-libwww
   - A [Notifo](http://notifo.com) account.
