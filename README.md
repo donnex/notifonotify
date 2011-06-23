@@ -2,7 +2,9 @@ Requirements
 ============
 
   - [Irssi](http://irssi.org) IRC client.
-  - The libwww Perl package. Debian/Ubuntu libwww-perl. FreeBSD p5-libwww.
+  - The libwww Perl package.
+     - Debian/Ubuntu: libwww-perl + libcrypt-ssleay-perl
+     - FreeBSD: p5-libwww
   - A [Notifo](http://notifo.com) account.
   - An iPhone with the Notifo app (free).
 
