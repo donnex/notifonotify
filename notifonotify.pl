@@ -33,6 +33,7 @@ $config{clientcount} = 0;
 Irssi::settings_add_str($IRSSI{'name'}, 'notifo_username', '');
 Irssi::settings_add_str($IRSSI{'name'}, 'notifo_api_secret', '');
 Irssi::settings_add_bool($IRSSI{'name'}, 'notifo_debug', 0);
+Irssi::settings_add_str($IRSSI{'name'}, 'notifo_ignored_servers', '');
 
 
 sub debug
@@ -124,6 +125,11 @@ sub msg_pub
 	my ($server, $data, $nick, $mask, $target) = @_;
 	my $safeNick = quotemeta($server->{nick});
 
+	if (ignored_server($server->{tag})) {
+		debug('Ignored server '.$server->{tag});
+		return;
+	}
+
 	if ($server->{usermode_away} == '1' && $data =~ /$safeNick/i) {
 		debug('Got pub msg with my name.');
 		send_notifo('Mention', $target.' '.$nick.': '.strip_formating($data));
@@ -133,6 +139,12 @@ sub msg_pub
 sub msg_pri
 {
 	my ($server, $data, $nick, $address) = @_;
+
+	if (ignored_server($server->{tag})) {
+		debug('Ignored server '.$server->{tag});
+		return;
+	}
+
 	if ($server->{usermode_away} == '1') {
 	    debug('Got priv msg.');
 		send_notifo('Private msg', $nick.': '.strip_formating($data));
@@ -146,6 +158,12 @@ sub strip_formating
 	$msg =~ s/[^\x20-\xFF]//g;
 	$msg =~ s/\xa0/ /g;
 	return $msg;
+}
+
+sub ignored_server
+{
+	my ($server) = @_;
+	return grep { $server eq $_} split(/,/, Irssi::settings_get_str('notifo_ignored_servers'));
 }
 
 Irssi::signal_add_last('proxy client connected', 'client_connect');
