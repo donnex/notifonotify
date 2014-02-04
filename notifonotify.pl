@@ -33,6 +33,7 @@ $config{clientcount} = 0;
 Irssi::settings_add_str($IRSSI{'name'}, 'notifo_username', '');
 Irssi::settings_add_str($IRSSI{'name'}, 'notifo_api_secret', '');
 Irssi::settings_add_bool($IRSSI{'name'}, 'notifo_debug', 0);
+Irssi::settings_add_bool($IRSSI{'name'}, 'notifo_away_only', 1);
 
 
 sub debug
@@ -124,7 +125,7 @@ sub msg_pub
 	my ($server, $data, $nick, $mask, $target) = @_;
 	my $safeNick = quotemeta($server->{nick});
 
-	if ($server->{usermode_away} == '1' && $data =~ /$safeNick/i) {
+	if ((!Irssi::settings_get_bool('notifo_away_only') || $server->{usermode_away} == '1') && $data =~ /$safeNick/i) {
 		debug('Got pub msg with my name.');
 		send_notifo('Mention', $target.' '.$nick.': '.strip_formating($data));
 	}
@@ -133,7 +134,7 @@ sub msg_pub
 sub msg_pri
 {
 	my ($server, $data, $nick, $address) = @_;
-	if ($server->{usermode_away} == '1') {
+	if (!Irssi::settings_get_bool('notifo_away_only') || $server->{usermode_away} == '1') {
 	    debug('Got priv msg.');
 		send_notifo('Private msg', $nick.': '.strip_formating($data));
 	}
